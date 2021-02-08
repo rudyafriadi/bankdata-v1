@@ -63,7 +63,7 @@
               <div class="form-group">
                 <label for="exampleInputEmail1">Level Pengguna</label>
                 <select class="form-control" name="role_id" id="level">
-                  @foreach ($role as $data)
+                  @foreach ($roles as $data)
                   <option value="{{$data->id}}">{{$data->n_role}}</option>
                   @endforeach
                 </select>

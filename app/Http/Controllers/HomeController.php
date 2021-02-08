@@ -9,6 +9,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Barang;
 use App\Satuan;
 use App\Komoditas;
+use App\Tower;
+use App\Website;
+use App\Site;
 
 class HomeController extends Controller
 {
@@ -29,6 +32,7 @@ class HomeController extends Controller
      */
     public function home()
     {
+        $role = Auth::user()->role_id;
         $user = Auth::user()->id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
@@ -38,12 +42,13 @@ class HomeController extends Controller
             // dd($instansi);  
         }
         
-        return view('home2', compact('instansi','id'));
+        return view('home2', compact('instansi','id','role'));
     }
 
     public function landingpage()
     {
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
@@ -51,20 +56,25 @@ class HomeController extends Controller
             // $id = bcrypt($data->instansi_id);
             // dd($instansi);  
         }
-        return view ('landingpage', compact('instansi','id'));
+        return view ('landingpage', compact('instansi','id','role'));
     }
 
     public function home_diskominfotik(Request $r)
     {
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
+        $tower = Tower::all()->count();
+        $aplikasi = Website::all()->count();
+        $site = Site::all()->count();
+        $userkom = Pegawai::where('instansi_id','1')->count();
           
-        return view('page/diskominfotik/home', compact('id','instansi'));
+        return view('page/diskominfotik/home', compact('id','instansi','role','tower','aplikasi','site','userkom'));
     }
 
     public function home_dkumpp(Request $r)
@@ -105,6 +115,19 @@ class HomeController extends Controller
         return view ('page.dkumpp.grafik', compact('instansi','categories','beras','gula','tepung','minyak'));
           
         // return view('page/dkumpp/home', compact('id','instansi'));
+    }
+
+    public function home_media(Request $r)
+    {
+        $user = Auth::user()->id;
+        $pegawai = Pegawai::where('users_id', $user)->get();
+        foreach ($pegawai as $data) {
+            $instansi = $data->instansi->n_instansi;
+            $id = $data->instansi_id;
+            // dd($instansi);  
+        }
+          
+        return view('page/media/home', compact('id','instansi'));
     }
 
     public function cekqrcode()

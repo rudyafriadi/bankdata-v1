@@ -9,7 +9,7 @@
   <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
   <link rel="shortcut icon" href="img/favicon.png">
 
-  <title>Bank Data</title>
+  <title>Anambas Satu Data</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -43,7 +43,7 @@
 
 </head>
 
-<body>
+<body class="light-sidebar-nav">
 
   <section id="container" class="">
     @include('layouts.header2')

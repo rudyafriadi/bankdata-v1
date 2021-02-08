@@ -14,52 +14,56 @@ class DokumenController extends Controller
     {
         $dokumen = Dokumen::where('j_doc','1')->where('kat_doc','1')->get();
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.aplikasi.suratmasuk', compact('dokumen','instansi'));
+        return view ('page.diskominfotik.aplikasi.suratmasuk', compact('dokumen','instansi','role'));
     }
 
     public function skeluaraplikasi()
     {
         $dokumen = Dokumen::where('j_doc','2')->where('kat_doc','1')->get();
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.aplikasi.suratkeluar', compact('dokumen','instansi'));
+        return view ('page.diskominfotik.aplikasi.suratkeluar', compact('dokumen','instansi','role'));
     }
 
     public function smasuktower()
     {
         $dokumen = Dokumen::where('j_doc','1')->where('kat_doc','2')->get();
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.tower.suratmasuk', compact('dokumen','instansi'));
+        return view ('page.diskominfotik.tower.suratmasuk', compact('dokumen','instansi','role'));
     }
 
     public function skeluartower()
     {
         $dokumen = Dokumen::where('j_doc','2')->where('kat_doc','2')->get();
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.tower.suratkeluar', compact('dokumen','instansi'));
+        return view ('page.diskominfotik.tower.suratkeluar', compact('dokumen','instansi','role'));
     }
 
     public function simpan(Request $r)

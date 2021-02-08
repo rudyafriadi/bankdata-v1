@@ -16,6 +16,11 @@ class Kelurahan extends Model
         return $this->hasMany("App\Site");
     }
 
+    public function tower()
+    {
+        return $this->hasMany("App\Tower");
+    }
+
     public function kecamatan()
     {
         return $this->belongsTo("App\Kecamatan");

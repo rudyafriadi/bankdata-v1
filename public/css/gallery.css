@@ -53,6 +53,15 @@
     color: #fff;
 }
 
+.grid figcaption button {
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 2px;
+    display: inline-block;
+    background: #ff6c60;
+    color: #fff;
+}
+
 /* Individual Caption Styles */
 
 /* Caption Style 1 */

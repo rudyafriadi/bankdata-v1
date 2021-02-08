@@ -25,17 +25,20 @@
                 </span>
                 @enderror
               </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Lokasi Site</label>
-                <input id="lokasi" value="{{$tower->lokasi}}" placeholder="Lokasi Site" type="text"
-                  class="form-control @error('lokasi') is-invalid @enderror" name="lokasi" value="{{ old('lokasi') }}"
-                  required autocomplete="lokasi">
 
-                @error('lokasi')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+              <label for="exampleInputEmail1">Kecamatan</label>
+              <select class="js-example-basic-multiple kecamatan" name="kecamatan_id" id="kecamatan_id">
+                <option disabled="true" selected="true" value="0">Pilih Kecamatan</option>
+                @foreach ($kecamatan as $data)
+                <option value="{{$data->id}}">{{$data->n_kec}}</option>
+                @endforeach
+              </select>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Kelurahan/Desa</label>
+                <select class="js-example-basic-multiple kelurahan" name="kelurahan_id" id="kelurahan_id">
+                  <option disabled="true" selected="true" value="0">Pilih Kelurahan/Desa</option>
+                </select>
               </div>
               <div class="form-group">
                 <label for="exampleInputEmail1">Latitude</label>
@@ -172,6 +175,15 @@
                   id="tahun">
                   <option value="2020">2020</option>
                   <option value="2019">2019</option>
+                  <option value="2018">2018</option>
+                  <option value="2017">2017</option>
+                  <option value="2016">2016</option>
+                  <option value="2015">2015</option>
+                  <option value="2014">2014</option>
+                  <option value="2013">2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011">2011</option>
+                  <option value="2010">2010</option>
                 </select>
 
                 @error('tahun')

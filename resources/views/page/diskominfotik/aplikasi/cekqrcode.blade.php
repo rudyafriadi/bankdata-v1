@@ -6,14 +6,10 @@
     <!-- page start-->
     <section class="card">
       <header class="card-header">
-        @if ($idkadis == 7)
-        {{$namakadis}}
-        @else
-        <p>Salah</p>
-        @endif
+        DOKUMEN INI TELAH DI SETUJUI OLEH <br>
+        {{$namakadis}} <br> SEBAGAI KEPALA {{$instansi}}
 
         <span class="pull-right">
-
         </span>
       </header>
     </section>

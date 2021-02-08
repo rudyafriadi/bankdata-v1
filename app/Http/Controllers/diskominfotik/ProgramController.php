@@ -14,13 +14,14 @@ class ProgramController extends Controller
     {
         $program = Program::all();
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.tower.program', compact('program','instansi'));
+        return view ('page.diskominfotik.tower.program', compact('program','instansi','role'));
     }
 
     public function simpan(Request $r)

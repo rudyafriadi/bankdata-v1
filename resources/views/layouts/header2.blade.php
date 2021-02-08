@@ -4,7 +4,7 @@
     <i class="fa fa-bars"></i>
   </div> --}}
   <!--logo start-->
-  <a href="index.html" class="logo">Bank-<span>Data</span></a>
+  <a href="/" class="logo">Anambas -<span> Satu Data</span></a>
   <!--logo end-->
   <div class="top-nav ">
     <!--search & user info start-->
