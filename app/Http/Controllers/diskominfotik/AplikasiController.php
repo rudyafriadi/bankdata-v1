@@ -19,37 +19,40 @@ class AplikasiController extends Controller
     {
         $website = Website::all();
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.aplikasi.website', compact('website','instansi'));
+        return view ('page.diskominfotik.aplikasi.website', compact('website','instansi','role'));
     }
 
     public function detail(Request $r)
     {
         $website = Website::findOrFail($r->id);
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.aplikasi.websitedetail', compact('website','instansi'));
+        return view ('page.diskominfotik.aplikasi.websitedetail', compact('website','instansi','role'));
     }
 
     public function create(Request $r)
     {
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
         }
-        return view ('page.diskominfotik.aplikasi.create', compact('instansi'));
+        return view ('page.diskominfotik.aplikasi.create', compact('instansi','role'));
     }
 
     public function simpan(Request $r)
@@ -87,12 +90,13 @@ class AplikasiController extends Controller
     {
         $website = Website::findOrFail($r->id);
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
         }
-        return view ('page.diskominfotik.aplikasi.edit', compact('website','instansi'));
+        return view ('page.diskominfotik.aplikasi.edit', compact('website','instansi','role'));
     }
 
     public function update(Request $r)
@@ -137,6 +141,7 @@ class AplikasiController extends Controller
     {
         
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         $kadis = Pegawai::where('jabatan_id', 3)->where('instansi_id', 1)->get();
         foreach ($kadis as $data) {
@@ -159,23 +164,23 @@ class AplikasiController extends Controller
         if ($pilih == 1) {
             if ($cari == 'all') {
                 $website = Website::all();
-                return view ('page.diskominfotik.aplikasi.website', compact('website','cari','instansi','qrcode'));
+                return view ('page.diskominfotik.aplikasi.website', compact('website','cari','instansi','qrcode','role'));
             } else {
                 $website = Website::where('tahun_pembuatan','like',"%".$cari."%")->get();
-                return view ('page.diskominfotik.aplikasi.website', compact('website','cari','instansi','qrcode'));
+                return view ('page.diskominfotik.aplikasi.website', compact('website','cari','instansi','qrcode','role'));
             }
             
         } else {
             if ($cari == 'all') {
                 $website = Website::all();
-                return view ('page.diskominfotik.exportpdf.exportweb', compact('website','cari','instansi','qrcode','namakadis'));
-                $pdf = PDF::loadView('page.diskominfotik.exportpdf.exportweb', compact('website','cari','instansi','qrcode','namakadis'));
+                return view ('page.diskominfotik.exportpdf.exportweb', compact('website','cari','instansi','qrcode','namakadis','role'));
+                $pdf = PDF::loadView('page.diskominfotik.exportpdf.exportweb', compact('website','cari','instansi','qrcode','namakadis','role'));
                 // return $pdf->download('website'.date('Y-m-d_H-i-s').'.pdf');
             } else {
                 $website = Website::where('tahun_pembuatan', $cari)->get();
-                return view ('page.diskominfotik.exportpdf.exportweb', compact('website','cari','instansi','qrcode','namakadis'));
+                return view ('page.diskominfotik.exportpdf.exportweb', compact('website','cari','instansi','qrcode','namakadis','role'));
 
-                $pdf = PDF::loadView('page.diskominfotik.exportpdf.exportweb', compact('website','cari','instansi'));
+                $pdf = PDF::loadView('page.diskominfotik.exportpdf.exportweb', compact('website','cari','instansi','role'));
                 // return $pdf->download('website_'.date('Y-m-d_H-i-s').'.pdf');
             }
             
@@ -187,6 +192,7 @@ class AplikasiController extends Controller
     public function grafik()
     {
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         $website = Website::orderBy('tahun_pembuatan','asc')->get()->unique('tahun_pembuatan');
         // dd($website);
@@ -200,7 +206,7 @@ class AplikasiController extends Controller
             $categories[] = $web->tahun_pembuatan;
             $data[] = Website::where('tahun_pembuatan', $web->tahun_pembuatan)->distinct()->count();
         }
-        return view ('page.diskominfotik.aplikasi.grafik', compact('instansi','categories','data'));
+        return view ('page.diskominfotik.aplikasi.grafik', compact('instansi','categories','data','role'));
     }
 
     public function cekqrcode()
@@ -212,8 +218,17 @@ class AplikasiController extends Controller
             // dd($idkadis);
             // $qrcode = QrCode::size(100)->generate( url('website/cekqrcode/'.$idkadis) );
         }
+        $website = Website::all();
+        $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
+        $pegawai = Pegawai::where('users_id', $user)->get();
+        foreach ($pegawai as $data) {
+            $instansi = $data->instansi->n_instansi;
+            $id = $data->instansi_id;
+            // dd($instansi);  
+        }
 
-        return view ('page.diskominfotik.aplikasi.cekqrcode', compact('namakadis','idkadis'));
+        return view ('page.diskominfotik.aplikasi.cekqrcode', compact('namakadis','idkadis','instansi'));
     }
 
     

@@ -17,6 +17,11 @@ class Kecamatan extends Model
         return $this->hasMany("App\Site");
     }
 
+    public function tower()
+    {
+        return $this->hasMany("App\Tower");
+    }
+
     public function kelurahan()
     {
         return $this->hasMany("App\Kelurahan");

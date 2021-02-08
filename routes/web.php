@@ -14,14 +14,25 @@
 
 Auth::routes();
 Route::get('/', 'FrontController@front')->name('front');
+Route::get('/media', 'FrontController@media')->name('mediafront');
+Route::get('/komunikasi', 'FrontController@komunikasi')->name('komunikasi');
+Route::get('/datatower', 'FrontController@datatower')->name('datatower');
+Route::get('/grafiktower', 'FrontController@grafiktower')->name('grafiktower');
+Route::get('/aplikasi', 'FrontController@aplikasi')->name('aplikasi');
+Route::get('/dataaplikasi', 'FrontController@dataaplikasi')->name('dataaplikasi');
+Route::get('/grafikaplikasi', 'FrontController@grafikaplikasi')->name('grafikaplikasi');
+
 Route::get('/login','LoginController@index');
 Route::post('/signin','LoginController@postsignin')->name('signin');
 Route::get('/landing', 'HomeController@landingpage')->name('dashboard');
 Route::get('/dashboard/diskominfotik', 'HomeController@home_diskominfotik')->name('diskominfotik');
+Route::get('/dashboard/bksdm', 'HomeController@home_bksdm')->name('bksdm');
 Route::get('/dashboard/dkumpp', 'HomeController@home_dkumpp')->name('dkumpp');
+Route::get('/dashboard/media', 'HomeController@home_media')->name('media');
 Route::get('qrcode', 'HomeController@showqrcode')->name('showqrcode');
 Route::get('logout', 'HomeController@logout')->name('logout');
 Route::get('cekqrcode/{id}', 'HomeController@cekqrcode')->name('cekqrcode');
+
 // Route::get('qrcode', function () {
 //     return QrCode::size(300)->generate('www.mandankoding.com');
 // });
@@ -260,3 +271,36 @@ Route::prefix('komoditas')->group(function(){
     Route::get('/grafik', 'dkumpp\KomoditasController@grafik')->middleware('auth');
     Route::get('/cekqrcode/{id}', 'dkumpp\KomoditasController@cekqrcode');
 });
+
+//ROUTE MEDIA
+
+Route::prefix('publikasi')->group(function(){
+    Route::get('/', 'media\MediaController@index')->name('publikasi')->middleware('auth');
+    Route::post('/simpan', 'media\MediaController@simpanpublikasi')->middleware('auth');
+    Route::patch('/update/{id}', 'media\MediaController@updatepublikasi')->middleware('auth');
+
+    Route::get('/media', 'media\MediaController@list')->name('media')->middleware('auth');
+    Route::post('/media/simpan', 'media\MediaController@simpanmedia')->middleware('auth');
+    Route::get('/detail/{id}', 'media\MediaController@detail')->middleware('auth');
+    Route::get('/edit/{id}', 'media\MediaController@edit')->middleware('auth');
+    
+    Route::get('/delete/{id}', 'media\MediaController@delete')->middleware('auth');
+    Route::get('/cari', 'media\MediaController@FilterByYear')->middleware('auth');
+    Route::get('/exportpdf', 'media\MediaController@exportPDF')->middleware('auth');
+    Route::get('/grafik', 'media\MediaController@grafik')->middleware('auth');
+    Route::get('/cekqrcode/{id}', 'media\MediaController@cekqrcode');
+});
+
+Route::prefix('post')->group(function(){
+    Route::get('/', 'media\PostController@index')->name('post')->middleware('auth');
+    Route::post('/simpan', 'media\PostController@simpan')->middleware('auth');
+    Route::patch('/update/{id}', 'media\PostController@updatepublikasi')->middleware('auth');
+    Route::get('/delete/{id}', 'media\PostController@delete')->middleware('auth');
+    Route::get('/cari', 'media\PostController@FilterByYear')->middleware('auth');
+    Route::get('/exportpdf', 'media\PostController@exportPDF')->middleware('auth');
+    Route::get('/grafik', 'media\PostController@grafik')->middleware('auth');
+    Route::get('/cekqrcode/{id}', 'media\PostController@cekqrcode');
+});
+
+
+

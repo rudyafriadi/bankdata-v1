@@ -52,7 +52,8 @@
                     <th>Nomor</th>
                     <th>Nama Site</th>
                     <th>Status Pemilik</th>
-                    <th>Lokasi</th>
+                    <th>Kecamatan</th>
+                    <th>Kelurahan</th>
                     <th>Provider</th>
                     <th>Program</th>
                     <th>Tahun Pembuatan</th>
@@ -67,7 +68,8 @@
                     <td>{{$no}}</td>
                     <td>{{$data->sitename}}</td>
                     <td>{{$data->s_pemilik}}</td>
-                    <td>{{$data->lokasi}}</td>
+                    <td>{{$data->kecamatan->n_kec}}</td>
+                    <td>{{$data->kelurahan->n_kel}}</td>
                     <td>{{$data->provider->nama_provider}}</td>
                     <td>{{$data->program->n_program}}</td>
                     <td>{{$data->tahun}}</td>

@@ -14,6 +14,8 @@ use App\Pegawai;
 use App\Provider;
 use App\Pic;
 use App\Program;
+use App\Kecamatan;
+use App\Kelurahan;
 use PDF;
 
 class TowerController extends Controller
@@ -21,6 +23,7 @@ class TowerController extends Controller
     public function index()
     {
         $tower = Tower::all();
+        $role = Auth::user()->role_id;
         $user = Auth::user()->id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
@@ -28,29 +31,31 @@ class TowerController extends Controller
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.tower.tower', compact('tower','instansi'));
+        return view ('page.diskominfotik.tower.tower', compact('tower','instansi','role'));
     }
 
     public function create(Request $r)
     {
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $provider = Provider::all();
         $pic = Pic::all();
         $program = Program::all();
+        $kecamatan = Kecamatan::all();
+        $kelurahan = Kelurahan::all();
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.tower.create', compact('instansi','provider','pic','program'));
+        return view ('page.diskominfotik.tower.create', compact('instansi','provider','pic','program','role','kecamatan','kelurahan'));
     }
 
     public function simpan(Request $r)
     {
         $this->validate($r, [
             'sitename' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
             'lat' => 'required|string|max:255',
             'long' => 'required|string|max:255',
             's_pemilik' => 'required|string|max:255',
@@ -67,7 +72,8 @@ class TowerController extends Controller
 
         $tower = new Tower;
         $tower->sitename = $r->sitename;
-        $tower->lokasi = $r->lokasi;
+        $tower->kecamatan_id = $r->kecamatan_id;
+        $tower->kelurahan_id = $r->kelurahan_id;
         $tower->lat = $r->lat;
         $tower->long = $r->long;
         $tower->s_pemilik = $r->s_pemilik;
@@ -95,13 +101,14 @@ class TowerController extends Controller
     {
         $tower = Tower::findOrFail($r->id);
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.diskominfotik.tower.towerdetail', compact('tower','instansi'));
+        return view ('page.diskominfotik.tower.towerdetail', compact('tower','instansi','role'));
     }
 
     public function edit(Request $r)
@@ -110,20 +117,22 @@ class TowerController extends Controller
         $provider = Provider::all();
         $pic = Pic::all();
         $program = Program::all();
+        $kecamatan = Kecamatan::all();
+        $kelurahan = Kelurahan::all();
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
         }
-        return view ('page.diskominfotik.tower.edit', compact('tower','instansi','provider','pic','program'));
+        return view ('page.diskominfotik.tower.edit', compact('tower','instansi','provider','pic','program','role','kecamatan','kelurahan'));
     }
 
     public function update(Request $r)
     {   
         $this->validate($r, [
             'sitename' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
             'lat' => 'required|string|max:255',
             'long' => 'required|string|max:255',
             's_pemilik' => 'required|string|max:255',
@@ -140,7 +149,8 @@ class TowerController extends Controller
 
         $tower = Tower::findOrFail($r->id);
         $tower->sitename = $r->sitename;
-        $tower->lokasi = $r->lokasi;
+        $tower->kecamatan_id = $r->kecamatan_id;
+        $tower->kelurahan_id = $r->kelurahan_id;
         $tower->lat = $r->lat;
         $tower->long = $r->long;
         $tower->s_pemilik = $r->s_pemilik;
@@ -167,6 +177,7 @@ class TowerController extends Controller
     public function grafik()
     {
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         $tower = Tower::orderBy('tahun','asc')->get()->unique('tahun');
         foreach ($pegawai as $data) {
@@ -179,7 +190,7 @@ class TowerController extends Controller
             $categories[] = $tow->tahun;
             $data[] = Tower::where('tahun',$tow->tahun)->latest()->count();
         }
-        return view ('page.diskominfotik.tower.grafik', compact('instansi','categories','data'));
+        return view ('page.diskominfotik.tower.grafik', compact('instansi','categories','data','role'));
     }
 
     public function delete(Request $r)
@@ -193,6 +204,7 @@ class TowerController extends Controller
     {
         
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         $kadis = Pegawai::where('jabatan_id', 3)->where('instansi_id', 1)->get();
         foreach ($kadis as $data) {
@@ -215,21 +227,21 @@ class TowerController extends Controller
         if ($pilih == 1) {
             if ($cari == 'all') {
                 $tower = Tower::all();
-                return view ('page.diskominfotik.tower.tower', compact('tower','cari','instansi','qrcode'));
+                return view ('page.diskominfotik.tower.tower', compact('tower','cari','instansi','qrcode','role'));
             } else {
                 $tower = Tower::where('tahun','like',"%".$cari."%")->get();
-                return view ('page.diskominfotik.tower.tower', compact('tower','cari','instansi','qrcode'));
+                return view ('page.diskominfotik.tower.tower', compact('tower','cari','instansi','qrcode','role'));
             }
             
         } else {
             if ($cari == 'all') {
                 $tower = Tower::all();
-                return view ('page.diskominfotik.exportpdf.exporttower', compact('tower','cari','instansi','qrcode','namakadis'));
+                return view ('page.diskominfotik.exportpdf.exporttower', compact('tower','cari','instansi','qrcode','namakadis','role'));
                 $pdf = PDF::loadView('page.diskominfotik.exportpdf.exportweb', compact('tower','cari','instansi','qrcode','namakadis'));
                 return $pdf->download('tower'.date('Y-m-d_H-i-s').'.pdf');
             } else {
                 $tower = Tower::where('tahun', $cari)->get();
-                return view ('page.diskominfotik.exportpdf.exporttower', compact('tower','cari','instansi','qrcode','namakadis'));
+                return view ('page.diskominfotik.exportpdf.exporttower', compact('tower','cari','instansi','qrcode','namakadis','role'));
 
                 $pdf = PDF::loadView('page.diskominfotik.exportpdf.exporttower', compact('tower','cari','instansi'));
                 return $pdf->download('tower'.date('Y-m-d_H-i-s').'.pdf');

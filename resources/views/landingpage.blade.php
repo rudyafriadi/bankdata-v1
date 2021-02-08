@@ -34,10 +34,14 @@
         <!-- HEADLINE -->
         <a class="logo floatless " href="index.html">Bank<span>Data</span></a>
         <h2 class="mt-3"> Selamat Datang di Halaman Dashboard </h2>
-        @if ($id == 1)
+        @if ($id == 1 && $role == 2 || $id == 1 && $role == 1)
         <h2> Dinas Komunikasi Informatika dan Statistik</h2>
-        @elseif ($id == 3)
+        @elseif ($id == 2 && $role == 2 || $id == 2 && $role == 1)
+        <h2> BKPSDM </h2>
+        @elseif ($id ==3 && $role == 2 || $id == 3 && $role == 1)
         <h2> DKUMPP </h2>
+        @elseif ($id ==4 && $role == 2 || $id == 4 && $role == 1)
+        <h2> MEDIA </h2>
         @else
         <h2>Super Admin</h2>
         @endif
@@ -45,13 +49,19 @@
       </header>
       <!-- START TIMER -->
       <div id="timer" data-animated="FadeIn">
-        @if ($id == 1)
+        @if ($id == 1 && $role == 2 || $id == 1 && $role == 1)
         <a class="btn btn-danger" rel="group" href="/dashboard/diskominfotik">Masuk</a>
-        @elseif ($id == 3)
+        @elseif ($id == 2 && $role == 2 ||$id == 2 && $role == 1)
+        <a class="btn btn-danger" rel="group" href="/dashboard/bkpsdm">Masuk</a>
+        @elseif ($id == 3 && $role == 2 || $id == 3 && $role == 1)
         <a class="btn btn-danger" rel="group" href="/dashboard/dkumpp">Masuk</a>
+        @elseif ($id == 4 && $role == 2 || $id == 4 && $role == 1)
+        <a class="btn btn-danger" rel="group" href="/dashboard/media">Masuk</a>
         @else
-        <a class="btn btn-danger" rel="group" href="/dashboard/diskominfotik">Masuk</a>
-        <a class="btn btn-danger" rel="group" href="/dashboard/dkumpp">Masuk</a>
+        <a class="btn btn-danger" rel="group" href="/dashboard/diskominfotik">DISKOMINFOTIK</a>
+        <a class="btn btn-danger" rel="group" href="/dashboard/bkpsdm">BKPSDM</a>
+        <a class="btn btn-danger" rel="group" href="/dashboard/dkumpp">DKUMPP</a>
+        <a class="btn btn-danger" rel="group" href="/dashboard/media">MEDIA</a>
         @endif
 
       </div>

@@ -17,9 +17,12 @@
           <header class="card-header">
             Data Pegawai
             <span class="tools pull-right">
+              @if ($role == 1 || $role == 3)
               <a class="btn btn-success" href="/pegawai/create">
                 Tambah
               </a>
+              @endif
+
               {{-- <a href="/notadinas/create" class="btn btn-sm btn-outline-success mb-2"><i class="fa fa-plus"
                   aria-hidden="true"></i> Tambah</a> --}}
               {{-- <button type="button" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i>Buat Nota Dinas</button> --}}
@@ -42,7 +45,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @if ($role == 1)
+                  @if ($role == 1 || $role == 3)
                   @foreach ($pegawai as $data)
                   <tr class="gradeU">
                     <td>{{$data->nip}}</td>

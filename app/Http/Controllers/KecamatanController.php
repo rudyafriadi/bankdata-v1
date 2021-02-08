@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Kecamatan;
 use App\Pegawai;
 use App\Kelurahan;
+use App\Role;
 
 class KecamatanController extends Controller
 {
@@ -14,6 +15,7 @@ class KecamatanController extends Controller
     {
         $kecamatan = Kecamatan::all();
         $kelurahan = Kelurahan::all();
+        $role = Auth::user()->role_id;
         $user = Auth::user()->id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
@@ -21,7 +23,7 @@ class KecamatanController extends Controller
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.settings.kecamatan', compact('kecamatan','instansi','kelurahan'));
+        return view ('page.settings.kecamatan', compact('kecamatan','instansi','kelurahan','role'));
     }
 
     public function simpan(Request $r)

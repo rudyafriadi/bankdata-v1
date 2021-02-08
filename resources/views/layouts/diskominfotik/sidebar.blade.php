@@ -4,13 +4,13 @@
     <!-- sidebar menu start-->
     <ul class="sidebar-menu" id="nav-accordion">
       <li>
-        <a href="/home">
+        <a href="/dashboard/diskominfotik">
           <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         </a>
       </li>
 
-      <li class="sub-menu">
+      {{-- <li class="sub-menu">
         <a href="javascript:;">
           <i class="fa fa-laptop"></i>
           <span>SPPD & SPJ</span>
@@ -23,7 +23,7 @@
           <li><a href="buttons.html">Pengeluaran Rill</a></li>
           <li><a href="modal.html">Kwitansi</a></li>
         </ul>
-      </li>
+      </li> --}}
 
       <li class="sub-menu">
         <a href="javascript:;">
@@ -90,7 +90,7 @@
           </li>
         </ul>
       </li>
-
+      @if ($role == 1 || $role == 3)
       <li class="sub-menu">
         <a href="javascript:;">
           <i class="fa fa-cogs"></i>
@@ -103,15 +103,10 @@
           <li><a href="/instansi">Master OPD</a></li>
           <li><a href="/kecamatan">Master Kecamatan</a></li>
           <li><a href="/kelurahan">Master Kelurahan/Desa</a></li>
-          {{-- <li><a href="">Master Lokasi</a>
-            <ul>
-              <li><a href="/lokasi">Master Lokasi</a></li>
-              <li><a href="/kecamatan">Master Kecamatan</a></li>
-              <li><a href="/kelurahan">Master Kelurahan/Desa</a></li>
-            </ul>
-          </li> --}}
         </ul>
       </li>
+      @endif
+
 
     </ul>
     <!-- sidebar menu end-->

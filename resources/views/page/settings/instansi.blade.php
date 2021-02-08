@@ -45,9 +45,9 @@
                     <td>{{$data->n_instansi}}</td>
                     <td>{{$data->alamat}}</td>
                     @if ($data->status == 1)
-                    <td>Aktif</td>
+                    <td>OPD</td>
                     @else
-                    <td>Non Aktif</td>
+                    <td>Non OPD</td>
                     @endif
                     <td>
                       <a data-toggle="modal" data-target="#update" data-id="{{$data->id}}"
@@ -96,9 +96,11 @@
             <input type="text" name="alamat" class="form-control" id="exampleInputEmail3" placeholder="Alamat OPD">
           </div>
           <div class="form-group">
-            {{-- <label for="exampleInputPassword1">Status</label> --}}
-            <input type="hidden" name="status" value="1" class="form-control" id="exampleInputPassword3"
-              placeholder="Status">
+            <label for="exampleInputPassword1">Status</label>
+            <select name="status" class="form-control" id="">
+              <option value="1">OPD</option>
+              <option value="2">Non OPD</option>
+            </select>
           </div>
           <button type="submit" class="btn btn-default">Simpan</button>
         </form>

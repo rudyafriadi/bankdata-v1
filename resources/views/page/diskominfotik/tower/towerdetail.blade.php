@@ -4,27 +4,11 @@
   <section class="wrapper">
     <!-- page start-->
     <div class="row">
-      <aside class="profile-nav col-lg-4">
-        <section class="card">
-          <div class="user-heading ">
-            <a href="#"><img alt="image" class="" src="{{asset('storage/img_tower')}}/{{$tower->gambar}}"></a>
-          </div>
 
-          <ul class="nav nav-pills nav-stacked">
-            <li class="active nav-item"><a class="nav-link" href="profile.html"> <i class="fa fa-user"></i> Profile</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="profile-activity.html"> <i class="fa fa-calendar"></i> Recent
-                Activity <span class="badge badge-danger pull-right r-activity">9</span></a></li>
-            <li class="nav-item"><a class="nav-link" href="profile-edit.html"> <i class="fa fa-edit"></i> Edit
-                profile</a></li>
-          </ul>
-
-        </section>
-      </aside>
-      <aside class="profile-info col-lg-8">
+      <aside class="profile-nav col-lg-8">
 
         <section class="card">
-          <div class="bio-graph-heading">
+          <div class="user-heading">
             <strong>
               <h1> Site {{$tower->sitename}} </h1>
             </strong>
@@ -36,7 +20,10 @@
                 <p><span class="bold">Nama Site </span>: {{$tower->sitename}}</p>
               </div>
               <div class="bio-row">
-                <p><span class="bold">Lokasi </span>: {{$tower->lokasi}}</p>
+                <p><span class="bold">Kecamatan </span>: {{$tower->kecamatan->n_kec}}</p>
+              </div>
+              <div class="bio-row">
+                <p><span class="bold">Kelurahan </span>: {{$tower->kelurahan->n_kel}}</p>
               </div>
               <div class="bio-row">
                 <p><span class="bold">Latitude </span>: {{$tower->lat}}</p>

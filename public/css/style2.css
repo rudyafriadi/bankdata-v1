@@ -394,7 +394,7 @@ ul.sidebar-menu li a.active i {
     max-width: 1200px;
 
     display: inline-block;
-    /*width: 100%;*/
+    width: 100%;
     /*margin-top: 60px;*/
     /*padding: 15px;*/
 }

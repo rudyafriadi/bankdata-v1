@@ -14,13 +14,14 @@ class ProviderController extends Controller
     {
         $provider = Provider::all();
         $user = Auth::user()->id;
+        $role = Auth::user()->role_id;
         $pegawai = Pegawai::where('users_id', $user)->get();
         foreach ($pegawai as $data) {
             $instansi = $data->instansi->n_instansi;
             $id = $data->instansi_id;
             // dd($instansi);  
         }
-        return view ('page.settings.provider', compact('provider','instansi'));
+        return view ('page.settings.provider', compact('provider','instansi','role'));
     }
 
     public function simpan(Request $r)

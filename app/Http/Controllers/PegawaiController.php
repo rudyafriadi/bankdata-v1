@@ -38,7 +38,8 @@ class PegawaiController extends Controller
     public function create(Request $r)
     {
         $golongan = Golongan::all();
-        $role = Role::all();
+        $role = Auth::user()->role_id;
+        $roles = Role::all();
         $jabatan = Jabatan::all();
         $opd = Instansi::all();
         $user = Auth::user()->id;
@@ -49,7 +50,7 @@ class PegawaiController extends Controller
             // dd($instansi);  
         }
 
-        return view ('page.settings.createpegawai', compact('golongan','jabatan','instansi','opd','role'));
+        return view ('page.settings.createpegawai', compact('golongan','jabatan','instansi','opd','role','roles'));
     }
 
     public function simpan(Request $r)
